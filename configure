@@ -1,0 +1,28 @@
+#! /bin/sh               # -*- mode: sh -*-
+
+: ${R_HOME=`R RHOME`}
+
+if test -z "${R_HOME}"; then
+  echo "could not determine R_HOME"
+  exit 1
+fi
+
+export CC=`"${R_HOME}/bin/R" CMD config CC`
+export CFLAGS=`"${R_HOME}/bin/R" CMD config CFLAGS`
+export CPPFLAGS=`"${R_HOME}/bin/R" CMD config CPPFLAGS`
+export F77=`"${R_HOME}/bin/R" CMD config F77`
+export FFLAGS=`"${R_HOME}/bin/R" CMD config FFLAGS`
+export LDFLAGS=`"${R_HOME}/bin/R" CMD config LDFLAGS`
+
+if [[ ! -s ${R_PACKAGE_DIR}/fftw/ ]] ; then
+    (
+	cd src/fftw-3.3.4
+	./configure --prefix=${R_PACKAGE_DIR}/fftw --enable-shared
+	make
+	make install
+    )
+fi
+
+cat src/Makevars.in |
+    sed 's#@FFTW3_CPP@#'-I${R_PACKAGE_DIR}/fftw/include'#' |
+    sed 's#@FFTW3_LIBS@#'-L${R_PACKAGE_DIR}/fftw/lib\ -lfftw3'#' > src/Makevars

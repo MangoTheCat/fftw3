@@ -1,0 +1,6 @@
+PKG_CPPFLAGS=@FFTW3_CPP@
+PKG_LIBS=@FFTW3_LIBS@
+
+all: $(SHLIB)
+
+OBJECTS = fftw.o
