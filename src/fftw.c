@@ -3,7 +3,7 @@
  *
  * Wraps the plan creation and execution phases of fftw. Currently
  * both 1D c2c FFTs and r2r DCTs are supported.
- * 
+ *
  * Author:
  *  Sebastian Krey <skrey@statistik.tu-dortmund.de>
  *  Olaf Mersmann  <olafm@statistik.tu-dortmund.de>
@@ -82,7 +82,7 @@ void dct_plan_finalizer(SEXP s_plan) {
 /* Helper routines: */
 static int choose_effort(SEXP s_effort) {
   int effort = INTEGER(s_effort)[0];
-  
+
   if (effort <= 0) {
     return FFTW_ESTIMATE;
   } else if (effort == 1) {
@@ -126,11 +126,11 @@ SEXP FFT_plan(SEXP s_n, SEXP s_effort) {
   plan->size     = n;
   plan->in       = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * n);
   plan->out      = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * n);
-  plan->forward  = fftw_plan_dft_1d(plan->size, plan->in, plan->out, 
-				    FFTW_FORWARD, 
+  plan->forward  = fftw_plan_dft_1d(plan->size, plan->in, plan->out,
+				    FFTW_FORWARD,
 				    FFTW_DESTROY_INPUT | effort);
-  plan->backward = fftw_plan_dft_1d(plan->size, plan->in, plan->out, 
-				    FFTW_BACKWARD, 
+  plan->backward = fftw_plan_dft_1d(plan->size, plan->in, plan->out,
+				    FFTW_BACKWARD,
 				    FFTW_DESTROY_INPUT | effort);
 
   SEXP s_ret = R_MakeExternalPtr((void *)plan, R_NilValue, R_NilValue);
@@ -148,7 +148,7 @@ SEXP FFT_execute(SEXP s_plan, SEXP s_x, SEXP s_inv) {
   assert(plan != NULL);
 
   /* Extract fftw plan: */
-  if (INTEGER(s_inv)[0] == FALSE) {    
+  if (INTEGER(s_inv)[0] == FALSE) {
     p = plan->forward;
   } else {
     p = plan->backward;
@@ -161,17 +161,17 @@ SEXP FFT_execute(SEXP s_plan, SEXP s_x, SEXP s_inv) {
     return R_NilValue;
   }
   if (CPLXSXP == TYPEOF(s_x)) {
-    Rcomplex *x = COMPLEX(s_x);    
+    Rcomplex *x = COMPLEX(s_x);
     for (i = 0; i < n; ++i) {
       plan->in[i][0] = x[i].r;
       plan->in[i][1] = x[i].i;
-    }  
+    }
   } else if (REALSXP == TYPEOF(s_x)) {
     double *x = REAL(s_x);
     for (i = 0; i < n; ++i) {
       plan->in[i][0] = x[i];
       plan->in[i][1] = 0.0;
-    }  
+    }
   } else {
     error("'s_x' must be real or complex.");
   }
@@ -194,7 +194,7 @@ SEXP FFT_execute(SEXP s_plan, SEXP s_x, SEXP s_inv) {
 SEXP DCT_plan(SEXP s_n, SEXP s_type, SEXP s_effort) {
   dct_plan *plan;
   R_len_t n = length(s_n);
-  int type = INTEGER(s_type)[0];  
+  int type = INTEGER(s_type)[0];
   fftw_r2r_kind fw_type, bw_type;
 
   int effort = choose_effort(s_effort);
@@ -216,28 +216,28 @@ SEXP DCT_plan(SEXP s_n, SEXP s_type, SEXP s_effort) {
     error("Unknown type specified.");
     return NULL;
   }
-    
+
   /* If s_n is a single integer, assume it is the length */
   if (n == 1)
     n = INTEGER(s_n)[0];
-  
+
   if (!initialized) {
     fftw_import_system_wisdom();
     initialized = TRUE;
   }
-  
+
   plan           = Calloc(1, dct_plan);
   plan->size     = n;
   plan->in       = (double*) fftw_malloc(sizeof(double) * n);
   plan->out      = (double*) fftw_malloc(sizeof(double) * n);
   plan->forward  = fftw_plan_r2r_1d(plan->size, plan->in, plan->out,
-				    fw_type, 
+				    fw_type,
 				    FFTW_DESTROY_INPUT | effort);
   if (bw_type == fw_type) {
     plan->backward = plan->forward;
   } else {
     plan->backward = fftw_plan_r2r_1d(plan->size, plan->in, plan->out,
-				      bw_type, 
+				      bw_type,
 				      FFTW_DESTROY_INPUT | effort);
   }
 
@@ -256,7 +256,7 @@ SEXP DCT_execute(SEXP s_plan, SEXP s_x, SEXP s_inv) {
   assert(plan != NULL);
 
   /* Extract fftw plan: */
-  if (INTEGER(s_inv)[0] == FALSE) {    
+  if (INTEGER(s_inv)[0] == FALSE) {
     p = plan->forward;
   } else {
     p = plan->backward;
@@ -272,7 +272,7 @@ SEXP DCT_execute(SEXP s_plan, SEXP s_x, SEXP s_inv) {
     double *x = REAL(s_x);
     for (i = 0; i < n; ++i) {
       plan->in[i] = x[i];
-    }  
+    }
   } else {
     error("'s_x' must be real.");
   }

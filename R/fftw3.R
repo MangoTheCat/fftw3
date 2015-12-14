@@ -38,7 +38,7 @@ planDCT <- function(n, type=1, effort=0) {
     n <- as.integer(n)
   plan <- .Call("DCT_plan", n, as.integer(type), as.integer(effort), PACKAGE="fftw")
   class(plan) <- "DCTplan"
-  return (plan)  
+  return (plan)
 }
 
 DCT <- function(x, ..., plan, type=1) {
@@ -50,7 +50,7 @@ DCT <- function(x, ..., plan, type=1) {
 IDCT <- function(x, ..., plan, type=1, scale=TRUE) {
   if (missing(plan))
     plan <- planDCT(x, type)
-  y <- .Call("DCT_execute", plan, x, TRUE, PACKAGE="fftw")  
+  y <- .Call("DCT_execute", plan, x, TRUE, PACKAGE="fftw")
   if (scale) {
     n <- length(y)
     N <- if (type == 1) 2*(n-1) else 2*n
