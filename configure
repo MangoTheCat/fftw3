@@ -14,6 +14,9 @@ export F77="$("${R_HOME}/bin/R" CMD config F77)"
 export FFLAGS="$("${R_HOME}/bin/R" CMD config FFLAGS)"
 export LDFLAGS="$("${R_HOME}/bin/R" CMD config LDFLAGS)"
 
+## Fixup needed for Travis runs
+export LDFLAGS="$(echo $LDFLAGS | sed 's#-L #-L#')"
+
 if [ ! -s "${R_PACKAGE_DIR}/fftw/" ] ; then
     (
 	cd src/fftw-3.3.4
