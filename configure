@@ -1,4 +1,4 @@
-#! /bin/sh               # -*- mode: sh -*-
+#! /bin/sh
 
 : ${R_HOME=`R RHOME`}
 
