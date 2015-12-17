@@ -1,18 +1,18 @@
 #! /bin/sh
 
-: ${R_HOME=`R RHOME`}
+: ${R_HOME=$(R RHOME)}
 
 if test -z "${R_HOME}"; then
   echo "could not determine R_HOME"
   exit 1
 fi
 
-export CC=`"${R_HOME}/bin/R" CMD config CC`
-export CFLAGS=`"${R_HOME}/bin/R" CMD config CFLAGS`
-export CPPFLAGS=`"${R_HOME}/bin/R" CMD config CPPFLAGS`
-export F77=`"${R_HOME}/bin/R" CMD config F77`
-export FFLAGS=`"${R_HOME}/bin/R" CMD config FFLAGS`
-export LDFLAGS=`"${R_HOME}/bin/R" CMD config LDFLAGS`
+export CC="$("${R_HOME}/bin/R" CMD config CC)"
+export CFLAGS="$("${R_HOME}/bin/R" CMD config CFLAGS)"
+export CPPFLAGS="$("${R_HOME}/bin/R" CMD config CPPFLAGS)"
+export F77="$("${R_HOME}/bin/R" CMD config F77)"
+export FFLAGS="$("${R_HOME}/bin/R" CMD config FFLAGS)"
+export LDFLAGS="$("${R_HOME}/bin/R" CMD config LDFLAGS)"
 
 if [[ ! -s ${R_PACKAGE_DIR}/fftw/ ]] ; then
     (
