@@ -14,7 +14,7 @@ export F77="$("${R_HOME}/bin/R" CMD config F77)"
 export FFLAGS="$("${R_HOME}/bin/R" CMD config FFLAGS)"
 export LDFLAGS="$("${R_HOME}/bin/R" CMD config LDFLAGS)"
 
-if [[ ! -s ${R_PACKAGE_DIR}/fftw/ ]] ; then
+if [ ! -s "${R_PACKAGE_DIR}/fftw/" ] ; then
     (
 	cd src/fftw-3.3.4
 	./configure --prefix=${R_PACKAGE_DIR}/fftw --enable-shared
