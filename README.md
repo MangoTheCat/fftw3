@@ -14,7 +14,7 @@ FFTW is a C subroutine library for computing the discrete Fourier transform (DFT
 ## Installation
 
 ```r
-devtools::install_github("gaborcsardi/fftw3")
+devtools::install_github("mangothecat/fftw3")
 ```
 
 ## Usage
