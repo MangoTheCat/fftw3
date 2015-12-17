@@ -3,9 +3,8 @@
 
 > FFTW, the Discrete Fourier Transform Library
 
-[![Linux Build Status](https://travis-ci.org/gaborcsardi/fftw3.svg?branch=master)](https://travis-ci.org/gaborcsardi/fftw3)
-
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/gaborcsardi/fftw3?svg=true)](https://ci.appveyor.com/project/gaborcsardi/fftw3)
+[![Linux Build Status](https://travis-ci.org/MangoTheCat/fftw3.svg?branch=master)](https://travis-ci.org/MangoTheCat/fftw3)
+[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/MangoTheCat/fftw3?svg=true)](https://ci.appveyor.com/project/MangoTheCat/fftw3)
 [![](http://www.r-pkg.org/badges/version/fftw3)](http://www.r-pkg.org/pkg/fftw3)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/fftw3)](http://www.r-pkg.org/pkg/fftw3)
 
@@ -26,4 +25,4 @@ library(fftw3)
 
 ## License
 
-GPL-3 © [Matteo Frigo, Steven G. Johnson, Stefan Kral, IBM Austin Research Lab, CodeSourcery, Inc](https://github.com/gaborcsardi).
+GPL-3 © Matteo Frigo, Steven G. Johnson, Stefan Kral, IBM Austin Research Lab, CodeSourcery, Inc
