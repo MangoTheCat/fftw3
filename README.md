@@ -3,6 +3,7 @@
 
 > FFTW, the Discrete Fourier Transform Library
 
+[![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
 [![Linux Build Status](https://travis-ci.org/MangoTheCat/fftw3.svg?branch=master)](https://travis-ci.org/MangoTheCat/fftw3)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/github/MangoTheCat/fftw3?svg=true)](https://ci.appveyor.com/project/MangoTheCat/fftw3)
 [![](http://www.r-pkg.org/badges/version/fftw3)](http://www.r-pkg.org/pkg/fftw3)
